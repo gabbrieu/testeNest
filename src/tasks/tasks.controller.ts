@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { Task } from './shared/task';
+import { Task } from './shared/task.entity';
 import { TaskService } from './shared/task.service';
 
 @Controller('tasks')
@@ -14,7 +14,7 @@ export class TasksController {
     //Quando eu der um get numa URL que tem um parâmetro de id eu pego esse número e armazeno na  variável id do tipo number
     //e chamo a função corresponde nos services para fazer isso
     @Get(':id')
-    async getById(@Param('id') id: number): Promise<Task> {
+    async getById(@Param('id') id: string): Promise<Task> {
         return this.taskService.getById(id);
     }
 
@@ -24,13 +24,12 @@ export class TasksController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: number, @Body() task: Task): Promise<Task>{
-        task.id = id;
-        return this.taskService.update(task);
+    async update(@Param('id') id: string, @Body() task: Task): Promise<Task>{
+        return this.taskService.update(id, task);
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: number){
+    async delete(@Param('id') id: string){
         this.taskService.delete(id);
     }
 }

@@ -1,4 +1,4 @@
-import { Task } from './task';
+import { Task } from './task.entity';
 
 describe('Task', () => {
   it('should be defined', () => {
